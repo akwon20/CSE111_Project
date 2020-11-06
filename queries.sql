@@ -6,12 +6,12 @@
 SELECT *
 FROM products;
 
+-- Display stores in California
 SELECT *
 FROM Store;
 
 SELECT *
 FROM storeInventory;
-
 
 
 -- Check if a specific store contains a specific product
@@ -20,8 +20,9 @@ FROM Contains
 WHERE s_storeNum = ' ' AND
         p_name = ' ';
 
-
-
+-- Check the price change frequency for a specific product
+SELECT p_name, p_price, b_basePrice, p_lastShipment
+FROM price;
 
 
 
@@ -51,7 +52,7 @@ WHERE
     s_cityID = 1 AND
     s_storeNum = 1 ;
 
-    
+
 -- Update Query -------------------------------------
 
 -- product info
