@@ -26,5 +26,59 @@ WHERE
     s_storeName = '' AND
     s_cityID = 1 AND
     s_storeNum = 1 
+    
+-- Update Query -------------------------------------
+
+-- product info
+
+UPDATE 
+    Product
+SET 
+    p_price = 1.1
+WHERE
+    s_Name = '' AND
+    p_Name = ''
+
+
+UPDATE 
+    Product
+SET 
+    p_lastShipmenet = '2020-11-25'
+WHERE
+    s_Name = '' AND
+    p_Name = ''
+
+
+UPDATE 
+    SupplyDemand
+SET 
+    p_lastShipment = '2020-11-25'
+WHERE
+    p_Name = ''
+
+-- ratings
+
+UPDATE 
+    SupplyDemand
+SET 
+    r_nintendoRating = 8.5
+WHERE
+    p_Name = ''
+
+UPDATE 
+    SupplyDemand
+SET 
+    r_storeRating = 8.5
+WHERE
+    p_Name = '' --may need to added store name to relation table to carry out this operation
+
+--price anaysis (one of our use cases)
+
+UPDATE 
+    priceChngFreq
+SET 
+    b_basePrice = 59.9      --when base price (nintendo's offical price) of product changes
+WHERE
+    p_Name = ''
 
 
