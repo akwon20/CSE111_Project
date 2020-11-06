@@ -16,4 +16,15 @@ INSERT INTO priceChngFreq(p_name, p_price, p_lastShipment[DATE], b_name, b_baseP
 VALUES();
 
 
--- Delete query
+-- Delete query ------------------------------------
+
+--used for deleting outdated products or unavlaible items from a store's inventory 
+DELETE *
+FROM Store 
+WHERE 
+    p_Name = '' AND
+    s_storeName = '' AND
+    s_cityID = 1 AND
+    s_storeNum = 1 
+
+
