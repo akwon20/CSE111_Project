@@ -65,7 +65,8 @@ CREATE TABLE priceChngFreq(
     p_name CHAR NOT NULL,
     p_price DECIMAL NOT NULL,
     p_lastShipment DATE NOT NULL,
-    b_name CHAR NOT NULL, b_basePrice DECIMAL NOT NULL);
+    b_name CHAR NOT NULL, b_basePrice DECIMAL NOT NULL
+    );
 
 
 DROP TABLE IF EXISTS Contains;
