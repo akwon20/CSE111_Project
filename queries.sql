@@ -20,11 +20,22 @@ FROM Contains
 WHERE s_storeNum = ' ' AND
         p_name = ' ';
 
+SELECT p_Name, 
+FROM inStock
+
 -- Check the price change frequency for a specific product
 SELECT p_name, p_price, b_basePrice, p_lastShipment
 FROM price;
 
-
+-- Display only the cheapest prices from every store
+SELECT s_storeName, p_price
+FROM products, Store
+WHERE
+    s_storeName = '' AND
+    s_storeNum = ''
+GROUP BY s_storeNum
+ORDER BY p_price    -- Must order by ascending price (Cheapest at the top)
+;
 
 
 -- Insert query ------------------------------------
