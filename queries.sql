@@ -179,6 +179,22 @@ WHERE
 
 -- product info
 
+UPDATE
+    Contains
+SET
+    c_status = FALSE                    --store does not contain product (soldout)
+WHERE
+    s_Name = '' AND
+    p_Name = '';
+
+UPDATE
+    Contains
+SET
+    c_status = TRUE                     --store now contains product (restock)
+WHERE
+    s_Name = '' AND
+    p_Name = '';
+
 UPDATE 
     products
 SET 
