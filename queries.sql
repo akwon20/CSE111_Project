@@ -184,16 +184,16 @@ UPDATE
 SET
     c_status = FALSE                    --store does not contain product (soldout)
 WHERE
-    s_Name = '' AND
-    p_Name = '';
+    c_storeName = '' AND
+    c_prodName = '';
 
 UPDATE
     Contains
 SET
     c_status = TRUE                     --store now contains product (restock)
 WHERE
-    s_Name = '' AND
-    p_Name = '';
+    c_storeName = '' AND
+    c_prodName = '';
 
 UPDATE 
     products
@@ -205,12 +205,12 @@ WHERE
 
 
 UPDATE 
-    Product
+    products
 SET 
     p_lastShipmenet = '2020-11-25'
 WHERE
-    s_Name = '' AND
-    p_Name = '';
+    p_storeName = '' AND
+    p_prodName = '';
 
 
 UPDATE 
@@ -218,31 +218,31 @@ UPDATE
 SET 
     sD_storeRatingAvg = ''
 WHERE
-    p_Name = '';
+    sd_prodName = '';
 
 -- ratings
 
 UPDATE 
     SupplyDemand
 SET 
-    r_nintendoRating = 8.5
+    sD_nintendoRating = 8.5     -- Nintendo doesn't have official ratings; we only have store ratings to go off of
 WHERE
-    p_Name = '';
+    sd_prodName = '';
 
 UPDATE 
     SupplyDemand
 SET 
-    r_storeRating = 8.5
+    sD_storeRatingAvg = 8.5
 WHERE
-    p_Name = ''; --may need to added store name to relation table to carry out this operation
+    sD_prodName = ''; --may need to added store name to relation table to carry out this operation
 
 --price anaysis (one of our use cases)
 
 UPDATE 
     priceChngFreq
 SET 
-    b_basePrice = 59.9      --when base price (nintendo's offical price) of product changes
+    pCF_basePrice = 59.9      --when base price of product changes
 WHERE
-    p_Name = '';
+    pCF_prodName = '';
 
 
