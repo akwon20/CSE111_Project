@@ -1,48 +1,3 @@
-
--- Search query ------------------------------------
-
-
--- Get full product info
-SELECT *
-FROM products;
-
--- Display stores in California
-SELECT *
-FROM Store;
-
-
--- Check if a specific store contains a specific product
-SELECT c_prodName, c_storeName
-FROM Contains
-WHERE c_storeNum = 'Target' AND
-        c_prodName = 'The Legend of Zelda: Breath of the Wild';
-
-SELECT p_Name
-FROM inStock;
-
--- Check the price change frequency for a specific product
-SELECT pCF_percentChng
-FROM priceChngFreq;
-
--- Display only the cheapest prices from every store
-SELECT s_storeName, p_price
-FROM products, Store
-WHERE
-    s_storeName = 'Target' AND
-    s_storeNum = ''
-GROUP BY s_storeNum
-ORDER BY p_price    -- Must order by ascending price (Cheapest at the top)
-;
-
-
--- Calculate price percentage change
-SELECT pCF_percentChng
-FROM priceChngFreq
-WHERE
-    (pCF_prodStorePrice / pCF_basePrice) = pCF_percentChng;
-
-
-
 -- Insert query ------------------------------------
 INSERT INTO 
     Contains(
@@ -163,7 +118,52 @@ VALUES
 
 
 
+
+-- Search query ------------------------------------
+-- Austin
+
+-- Get full product info
+SELECT *
+FROM products;
+
+-- Display stores in California
+SELECT *
+FROM Store;
+
+
+-- Check if a specific store contains a specific product
+SELECT c_prodName, c_storeName
+FROM Contains
+WHERE c_storeNum = 'Target' AND
+        c_prodName = 'The Legend of Zelda: Breath of the Wild';
+
+SELECT p_Name
+FROM inStock;
+
+-- Check the price change frequency for a specific product
+SELECT pCF_percentChng
+FROM priceChngFreq;
+
+-- Display only the cheapest prices from every store
+SELECT s_storeName, p_price
+FROM products, Store
+WHERE
+    s_storeName = 'Target' AND
+    s_storeNum = ''
+GROUP BY s_storeNum
+ORDER BY p_price    -- Must order by ascending price (Cheapest at the top)
+;
+
+
+-- Calculate price percentage change
+SELECT pCF_percentChng
+FROM priceChngFreq
+WHERE
+    (pCF_prodStorePrice / pCF_basePrice) = pCF_percentChng;
+
+
 -- Delete query ------------------------------------
+-- Austin
 
 --used for deleting outdated products or unavailable items from a store's inventory 
 DELETE *
@@ -176,6 +176,7 @@ WHERE
 
 
 -- Update Query -------------------------------------
+-- Rodolfo
 
 -- product info
 
