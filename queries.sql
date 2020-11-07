@@ -74,7 +74,7 @@ SET
     p_price = 1.1
 WHERE
     s_Name = '' AND
-    p_Name = ''
+    p_Name = '';
 
 
 UPDATE 
@@ -83,7 +83,7 @@ SET
     p_lastShipmenet = '2020-11-25'
 WHERE
     s_Name = '' AND
-    p_Name = ''
+    p_Name = '';
 
 
 UPDATE 
@@ -91,7 +91,7 @@ UPDATE
 SET 
     p_lastShipment = '2020-11-25'
 WHERE
-    p_Name = ''
+    p_Name = '';
 
 -- ratings
 
@@ -100,14 +100,14 @@ UPDATE
 SET 
     r_nintendoRating = 8.5
 WHERE
-    p_Name = ''
+    p_Name = '';
 
 UPDATE 
     SupplyDemand
 SET 
     r_storeRating = 8.5
 WHERE
-    p_Name = '' --may need to added store name to relation table to carry out this operation
+    p_Name = ''; --may need to added store name to relation table to carry out this operation
 
 --price anaysis (one of our use cases)
 
@@ -116,6 +116,6 @@ UPDATE
 SET 
     b_basePrice = 59.9      --when base price (nintendo's offical price) of product changes
 WHERE
-    p_Name = ''
+    p_Name = '';
 
 

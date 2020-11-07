@@ -87,7 +87,7 @@ INSERT INTO
 VALUES
     ('The Legend of Zelda: Beadth of the Wild', 1, 'Target', 1, FALSE),
     ('Super Mario Odessey', 1, 'Walmart', 2, TRUE)
-    ('Animal Crossing: New Horizons', 2, 'Target', 2, TRUE)
+    ('Animal Crossing: New Horizons', 2, 'Target', 2, TRUE);
 
 INSERT INTO
     saleFreq(
@@ -98,7 +98,7 @@ INSERT INTO
 VALUES
     ('The Legend of Zelda: Beadth of the Wild', 'Target', '2020-09-02')
     ('Super Mario Odessey', 'Walmart', '2020-08-10'),
-    ('Animal Crossing: New Horizons', 'Target', '2020-09-28')
+    ('Animal Crossing: New Horizons', 'Target', '2020-09-28');
 
 INSERT INTO
     Store(
@@ -116,7 +116,7 @@ VALUES
     (3, 'BestBuy', 1)
     (3, 'Target', 1)
     (3, 'Walmart', 1)
-    (3, 'Gamestop', 1)
+    (3, 'Gamestop', 1);
 
 INSERT INTO 
     products(
@@ -128,7 +128,7 @@ INSERT INTO
 VALUES
     ('Target','The Legend of Zelda: Breadth of the Wild', 39.99, '2018-05-09'),
     ('Walmart', 'Super Mario Odessey', 49.9, '2018-10-20'),
-    ('Target', 'Animal Crossing: New Horizons', 59.9, '2020-05-21')
+    ('Target', 'Animal Crossing: New Horizons', 59.9, '2020-05-21');
 
 INSERT INTO
     inStock(
@@ -141,7 +141,7 @@ INSERT INTO
 VALUES
     ('The Legend of Zelda: Breadth of the Wild', 'Target', 1, 1, 0)
     ('Super Mario Odessey', 'Walmart', 2, 1, 5)
-    ('Animal Crossing: New Horizons', 'Target', 2, 2, 10)
+    ('Animal Crossing: New Horizons', 'Target', 2, 2, 10);
 
 INSERT INTO
     shipmentETA(
@@ -155,7 +155,7 @@ INSERT INTO
 VALUES
     ('The Legend of Zelda: Breadth of the Wild', 1, 'Target', 1, '2020-09-02', '2020-09-16')
     ('Super Mario Odessey', 1, 'Walmart', 2, '2020-08-10', '2020-08-24')
-    ('Animal Crossing: New Horizons', 2, 'Target', 2, '2020-09-28', '2020-10-12')
+    ('Animal Crossing: New Horizons', 2, 'Target', 2, '2020-09-28', '2020-10-12');
 
 INSERT INTO
     locations(
@@ -167,7 +167,7 @@ VALUES
     (2, 'Fresno')
     (3, 'Modesto')
     (4, 'Turlock')
-    (5, 'Madera')
+    (5, 'Madera');
 
 INSERT INTO
     supplyDemand(
@@ -178,7 +178,7 @@ INSERT INTO
 VALUES  
     ('The Legend of Zelda: Breadth of the Wild', 10, 9.4)
     ('Super Mario Odessey', 9.1, 9.0)
-    ('Animal Crossing: New Horizons', 9.3, 8.8)
+    ('Animal Crossing: New Horizons', 9.3, 8.8);
 
 INSERT INTO
     priceChngFreq(
@@ -191,7 +191,7 @@ INSERT INTO
 VALUES
     ('The Legend of Zelda: Breadth of the Wild', 'Target', 39.99, 49.99, -20.01)
     ('Super Mario Odessey', 'Walmart', 49.99, 30.00, 40.01)
-    ('Animal Crossing: New Horizons', 'Target', 49.99, 60.00, -17.02)
+    ('Animal Crossing: New Horizons', 'Target', 49.99, 60.00, -17.02);
 
 
 
