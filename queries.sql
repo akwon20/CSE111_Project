@@ -134,8 +134,9 @@ FROM Store;
 -- Check if a specific store contains a specific product
 SELECT c_prodName, c_storeName
 FROM Contains
-WHERE c_storeNum = 'Target' AND
-        c_prodName = 'The Legend of Zelda: Breath of the Wild';
+WHERE c_storeNum = 1 AND
+        c_prodName = 'The Legend of Zelda: Breath of the Wild' AND
+        c_status = 1;
 
 SELECT p_Name
 FROM inStock;
@@ -171,8 +172,14 @@ FROM storeInventory
 WHERE 
     is_prodName = '' AND
     is_storeName = '' AND
-    is_cityID = 1 -- AND
+    is_cityID = 1; -- AND
     -- is_storeNum = 1 ;    -- We may only need the product, store, and city
+
+DELETE *
+FROM Contains
+WHERE
+    c_prodName = '' AND
+    c_storeNum = '';
 
 
 -- Update Query -------------------------------------
@@ -222,13 +229,6 @@ WHERE
     sd_prodName = '';
 
 -- ratings
-
-UPDATE 
-    SupplyDemand
-SET 
-    sD_nintendoRating = 8.5     -- Nintendo doesn't have official ratings; we only have store ratings to go off of
-WHERE
-    sd_prodName = '';
 
 UPDATE 
     SupplyDemand
