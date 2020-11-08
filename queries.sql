@@ -132,35 +132,51 @@ FROM Store;
 
 
 -- Check if a specific store contains a specific product
-SELECT c_prodName, c_storeName
+SELECT c_storeName, c_prodName
 FROM Contains
 WHERE c_storeNum = 1 AND
         c_prodName = 'The Legend of Zelda: Breath of the Wild' AND
         c_status = 1;
 
+SELECT c_prodName, c_storeName
+
+
 SELECT p_Name
 FROM inStock;
 
 -- Check the price change frequency for a specific product
-SELECT pCF_percentChng
-FROM priceChngFreq;
-
--- Display only the cheapest prices from every store
-SELECT s_storeName, p_price
-FROM products, Store
+SELECT *
+FROM priceChngFreq
 WHERE
-    s_storeName = 'Target' AND
-    s_storeNum = ''
-GROUP BY s_storeNum
-ORDER BY p_price    -- Must order by ascending price (Cheapest at the top)
+    pCF_prodName = 'Super Mario Odyssey'
+ORDER BY pCF_percentChng ASC;
+
+-- Display only the cheapest prices from every store within a specific city
+SELECT l_cityName, s_storeName, p_prodName, MIN(p_price)
+FROM products, Store, locations
+WHERE
+    s_cityID = 1
+GROUP BY s_storeName
+ORDER BY p_price DESC   -- Must order by ascending price (Cheapest at the top)
 ;
 
+-- Display only the cheapest prices from a specific store
+SELECT l_cityName, s_storeName, s_storeNum, MIN(p_price)
+FROM products, Store, locations
+WHERE
+    s_cityID = 1 AND
+    s_storeName = 'Target'
+GROUP BY s_storeNum
+ORDER BY p_price DESC;
 
+
+/*
 -- Calculate price percentage change
 SELECT pCF_percentChng
 FROM priceChngFreq
 WHERE
     (pCF_prodStorePrice / pCF_basePrice) = pCF_percentChng;
+*/
 
 
 -- Delete query ------------------------------------
