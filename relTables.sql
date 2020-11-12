@@ -23,7 +23,21 @@ CREATE TABLE products(
     p_storeName CHAR NOT NULL,
     p_prodName CHAR NOT NULL,
     p_price DECIMAL NOT NULL,
-    p_releasedate DATE NOT NULL
+    p_releasedate DATE NOT NULL,
+    p_type CHAR NOT NULL
+    );
+
+CREATE TABLE hardware(
+    h_price DECIMAL NOT NULL,
+    h_name CHAR NOT NULL,
+    h_releaseDate DATE NOT NULL
+    );
+
+-- Will apply to physical games developed and/or published by Nintendo
+CREATE TABLE software(
+    s_prodName CHAR NOT NULL,
+    s_price DECIMAL NOT NULL,
+    s_releasedate DATE NOT NULL
     );
 
 
