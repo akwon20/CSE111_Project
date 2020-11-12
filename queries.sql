@@ -53,12 +53,20 @@ INSERT INTO
 VALUES
     ('Target','The Legend of Zelda: Breath of the Wild', 39.99, '2018-05-09', 'Software'),
     ('Walmart', 'Super Mario Odyssey', 49.9, '2018-10-20', 'Software'),
-    ('Target', 'Animal Crossing: New Horizons', 59.9, '2020-05-21', 'Software');
+    ('Target', 'Animal Crossing: New Horizons', 59.9, '2020-05-21', 'Software')
+    ('Target', 'Nintendo Switch with Neon Blue and Neon Red Joy-Con', 299.99, '2017-03-03', 'Hardware'),
+    ('Target', 'Nintendo Switch with Gray Joy-Con', 299.99, '2017-03-03', 'Hardware'),
+    ('Target', 'Nintendo Switch Lite - Turquoise', 199.99, '2019-09-20', 'Hardware'),
+    ('Target','Nintendo Switch Lite - Gray', 199.99, '2019-09-20', 'Hardware'),
+    ('Target', 'Nintendo Switch Lite - Yellow', 199.99, '2019-09-20', 'Hardware'),
+    ('Target', 'Nintendo Switch Lite - Coral', 199.99, '2019-09-20', 'Hardware');
 
+
+-- Hardware/software should be added dynamically when new items are added to the products table
 INSERT INTO 
     hardware(
-    h_price,
     h_name,
+    h_price,
     h_releaseDate
     )
 VALUES
@@ -224,6 +232,12 @@ FROM Contains
 WHERE
     c_prodName = '' AND
     c_storeNum = '';
+
+DELETE *
+FROM hardware;
+
+DELETE *
+FROM software;
 
 
 -- Update Query -------------------------------------

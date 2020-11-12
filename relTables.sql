@@ -28,8 +28,8 @@ CREATE TABLE products(
     );
 
 CREATE TABLE hardware(
-    h_price DECIMAL NOT NULL,
-    h_name CHAR NOT NULL,
+    h_name DECIMAL NOT NULL,
+    h_price CHAR NOT NULL,
     h_releaseDate DATE NOT NULL
     );
 
@@ -85,6 +85,8 @@ DROP TABLE IF EXISTS Contains;
 DROP TABLE IF EXISTS saleFreq;
 DROP TABLE IF EXISTS Store;
 DROP TABLE IF EXISTS products;
+DROP TABLE IF EXISTS hardware;
+DROP TABLE IF EXISTS software;
 DROP TABLE IF EXISTS inStock;
 DROP TABLE IF EXISTS shipmentETA;
 DROP TABLE IF EXISTS storeInventory;
