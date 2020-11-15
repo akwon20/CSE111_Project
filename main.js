@@ -1,0 +1,61 @@
+/*
+Notes:
+    - Download postman to check data being sent to and from our server port
+    - review js DB lecture 
+*/
+
+// Express server components
+const express = require('express');
+
+const app = express();
+
+const sqlite3 = require('sqlite3').verbose();
+
+//path module helps locate directories for file reads/transfers 
+const path = require('path');
+
+//imported functions
+const logger = require('./middleware/logger'); //logger 
+const employees = require('./tst'); //employees dummy DB imported
+
+
+
+//create port from local process environment or 5000
+const PORT = process.env.PORT || 5000;
+
+// Access the database
+let db = new sqlite3.Database('./data/relate.sqlite', sqlite3.OPEN_READWRITE, (err) => {
+    if (err) {
+        return console.error(err.message);
+    }
+    console.log('Connected to database.');
+});
+
+//middleware functions
+
+//makes folder 'public' static so easily accessible may get 
+//may need to delete once new routes are created
+app.use(express.static(path.join(__dirname, 'public')));
+
+//logger initalized
+app.use(logger);
+
+//get all on list of employees
+app.get('/tst', (req, res) => {
+    res.json(employees);
+});
+
+//express listen on port and report success message 
+app.listen(PORT, () => console.log(`Server started in port: ${PORT}`));
+
+
+//access main page 
+// app.get('/', (req, res) => {
+//     res.sendFile(path.join(__dirname, 'public', 'main.html'));
+
+
+
+// Test method (check for outputs on webpage)
+// app.get('/', (req, res) => {
+//     res.send('<h1>Hello World</h1>');
+// });
