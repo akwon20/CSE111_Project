@@ -59,3 +59,23 @@ app.listen(PORT, () => console.log(`Server started in port: ${PORT}`));
 // app.get('/', (req, res) => {
 //     res.send('<h1>Hello World</h1>');
 // });
+
+// Test method (check for outputs on webpage)
+// app.get('/', (req, res) => {
+//     res.send('<h1>Hello World</h1>');
+// });
+
+// Test method (check for outputs on webpage)
+// app.get('/', (req, res) => {
+//     res.send('<h1>Hello World</h1>');
+// });
+
+// Test method (check for outputs on webpage)
+// app.get('/', (req, res) => {
+//     res.send('<h1>Hello World</h1>');
+// });
+
+// Test method (check for outputs on webpage)
+// app.get('/', (req, res) => {
+//     res.send('<h1>Hello World</h1>');
+// });
