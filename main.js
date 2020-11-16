@@ -37,13 +37,16 @@ let db = new sqlite3.Database('./data/relate.sqlite', sqlite3.OPEN_READWRITE, (e
 //may need to delete once new routes are created
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(express.json()); //can now handle raw json data (will use testing requests later)
+app.use(express.urlencoded({extended : false})); // can now handle encoded url data (values in url request)
+//purpose of this is that it can now interpret json and url data to input new values w/ post function 
+
+
 //logger initalized
 app.use(logger);
 
-//get all on list of employees
-app.get('/tst', (req, res) => {
-    res.json(employees);
-});
+//allows for use of router to functions in 'products' file / can now be accessed through requests on localhost:5000/api/products
+app.use('/api/products').require('./routes/api/products');
 
 //express listen on port and report success message 
 app.listen(PORT, () => console.log(`Server started in port: ${PORT}`));
@@ -53,27 +56,6 @@ app.listen(PORT, () => console.log(`Server started in port: ${PORT}`));
 // app.get('/', (req, res) => {
 //     res.sendFile(path.join(__dirname, 'public', 'main.html'));
 
-
-
-// Test method (check for outputs on webpage)
-// app.get('/', (req, res) => {
-//     res.send('<h1>Hello World</h1>');
-// });
-
-// Test method (check for outputs on webpage)
-// app.get('/', (req, res) => {
-//     res.send('<h1>Hello World</h1>');
-// });
-
-// Test method (check for outputs on webpage)
-// app.get('/', (req, res) => {
-//     res.send('<h1>Hello World</h1>');
-// });
-
-// Test method (check for outputs on webpage)
-// app.get('/', (req, res) => {
-//     res.send('<h1>Hello World</h1>');
-// });
 
 // Test method (check for outputs on webpage)
 // app.get('/', (req, res) => {
