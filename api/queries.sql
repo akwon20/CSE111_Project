@@ -88,6 +88,7 @@ VALUES
     ('Super Mario Odyssey', 49.9, '2018-10-20'),
     ('The Legend of Zelda: Breath of the Wild', 39.99, '2018-05-09');
 
+
 INSERT INTO
     inStock(
     is_prodName,
@@ -153,6 +154,17 @@ VALUES
     ('Animal Crossing: New Horizons', 'Target', 49.99, 60.00, -17.02);
 
 
+CREATE VIEW prodUpdates(store, storeNum, product, price,  prod_amount, restock_time) AS
+    SELECT Store.s_storeName, Store.s_storeNum,  p_prodName, p_price, is_prodAmount, time_added
+    FROM shipmentETA, Store, products, inStock
+    WHERE sE_prodName = p_prodName AND
+        is_storeName = sE_storeName AND
+        is_storeNum = sE_storeNum
+
+
+--need a trigger for increasing 'instock' and 'contains' table / other relevant tables
+
+
 
 
 -- Search query ------------------------------------
@@ -205,17 +217,6 @@ WHERE
 GROUP BY s_storeNum
 ORDER BY p_price DESC;
 
--- Obtain all hardware info
-SELECT *
-FROM hardware;
-
--- Obtain all software info
-SELECT *
-FROM software;
-
-SELECT s_prodName
-FROM software
-WHERE ;
 
 /*
 -- Calculate price percentage change
