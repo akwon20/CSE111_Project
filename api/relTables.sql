@@ -40,16 +40,18 @@ CREATE TABLE software(
     s_releasedate DATE NOT NULL
     );
 
+DROP TABLE inStock;
 
 CREATE TABLE inStock(
     is_prodName CHAR NOT NULL,
     is_storeName CHAR NOT NULL,
     is_storeNum INTEGER NOT NULL,
     is_cityID INTEGER NOT NULL,
-    is_prodAmount INTEGER NOT NULL
+    is_prodAmount INTEGER NOT NULL,
+    time_added TEXT DEFAULT CURRENT_TIMESTAMP
     );
 
-
+DROP TABLE shipmentETA;
 
 CREATE TABLE shipmentETA(
     sE_prodName CHAR NOT NULL,
@@ -57,7 +59,8 @@ CREATE TABLE shipmentETA(
     sE_storeName CHAR NOT NULL,
     sE_storeNum INTEGER NOT NULL,
     sE_lastShipment DATE NOT NULL,
-    sE_estimatedArrival DATE NOT NULL
+    sE_estimatedArrival DATE NOT NULL, --use srftime func for to do this automatically
+    time_updated TEXT DEFAULT CURRENT_TIMESTAMP
     );
 
 CREATE TABLE locations(
