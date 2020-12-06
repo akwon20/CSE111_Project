@@ -31,9 +31,22 @@ router.get('/' , (req, res, next) => {
 //search hardware by name
 router.get('/:name', (req, res) =>{
     console.log("Gets software with name")
+    console.log("Name is " + req.params.name)   // Check back on this one later
+    const pName = req.params.name;
 
     //preform check to see if name exists in table 
-    
+    knex
+        .select('s_prodName')        // Retrieve all items
+        .from('software')   // Retreive from products table
+        .where('p_prodName', pName)
+
+        .then(userData => {
+            // Send products extracted from database in response
+            res.json(userData)
+        })
+        .catch(err => {
+            res.json({msg: `Error retrieving software: ${err}`})
+        })
 
     //filter through table contents to display hardware with specified name
 
