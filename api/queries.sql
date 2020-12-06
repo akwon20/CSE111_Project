@@ -205,6 +205,17 @@ WHERE
 GROUP BY s_storeNum
 ORDER BY p_price DESC;
 
+-- Obtain all hardware info
+SELECT *
+FROM hardware;
+
+-- Obtain all software info
+SELECT *
+FROM software;
+
+SELECT s_prodName
+FROM software
+WHERE ;
 
 /*
 -- Calculate price percentage change
