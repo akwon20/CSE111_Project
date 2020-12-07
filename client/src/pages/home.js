@@ -1,3 +1,5 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 import React, {Component} from 'react';
 import Card from 'react-bootstrap/Card';
 // import CardGroup from 'react-bootstrap/CardGroup';
@@ -12,7 +14,8 @@ class Home extends React.Component {
     render(){
         return (
             <body>
-                {/* <h1>Hello World</h1> */}
+                <h1>Welcome!</h1>
+
                 <CardColumns>
                     <Card style={{ width: "18rem" }}>
                         <Card.Img variant="top" src = "holder.js/171x180" />
