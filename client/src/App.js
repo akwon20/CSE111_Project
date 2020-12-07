@@ -4,6 +4,8 @@ import './App.css';
 //import { render } from '../../api/app';
 import {Route, BrowserRouter as Router, Switch} from 'react-router-dom';
 import Home from './pages/home';
+import Software from './pages/s_Page';
+import Hardware from './pages/h_Page';
 
 
 
@@ -36,6 +38,8 @@ render(){
         <div>
             <Switch>
                 <Route exact path = "/" component = {Home}/> 
+                <Route path = '/software' component = {Software} />
+                <Route path = '/hardware' component = {Hardware} />
             </Switch>
         </div>
 
