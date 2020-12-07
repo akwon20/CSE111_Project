@@ -1,4 +1,5 @@
 import React, { Component, Fragment} from 'react';
+import {Link} from "react-router-dom";
 //import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -18,9 +19,11 @@ class Hardware extends Component {
 
         return(
             <Fragment>
-                <Navbar bg="dark" variant="dark">
-                    <Navbar.Brand href="#home">Nintendo Tingz</Navbar.Brand>
-                </Navbar>
+                <Link to="/">
+                    <Navbar bg="dark" variant="dark">
+                        <Navbar.Brand href="#home">Nintendo Tingz</Navbar.Brand>
+                    </Navbar>
+                </Link>
                 <Jumbotron>
                     <h1>Hardware</h1>
                     <p>
