@@ -68,6 +68,23 @@ router.get('/:name', (req, res) =>{
 
 router.get('/:price', (req, res) =>{
     console.log("Gets software with price")
+
+    console.log("Price is " + req.params.price)   // Check back on this one later
+    const pPrice = req.params.price;
+
+    //preform check to see if such products exist in table 
+    knex
+        .select('s_prodName, s_price')        // Retrieve software name and price
+        .from('software')   // Retreive from software table
+        .where('s_price', 'like', `%${pPrice}%`)
+
+        .then(userData => {
+            // Send products extracted from database in response
+            res.json(userData)
+        })
+        .catch(err => {
+            res.json({msg: `Error retrieving software: ${err}`})
+        })
     
     //filter through table contents to display hardware in decending order from specified price
 
