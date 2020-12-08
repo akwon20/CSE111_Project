@@ -5,7 +5,7 @@ const path = require('path');   // Import path module
 
 const db = path.resolve(__dirname, '../data/relate.sqlite'); // Retrieve location of database
 
-//will be used for specific searches related to the hardware page
+//will be used for specific searches related to the software page
 
 
 //axios will be used in each router request to preform operations on a database
@@ -21,11 +21,24 @@ const knex = require('knex')({
 });
 
 //search all hardware [intended for main Hardware page]
-router.get('/' , (req, res, next) => {
+router.get('/' , (req, res) => {
     console.log("Get all software")
-    next()
-}, (req, res) => {
-    res.json({msg : "Get all software"})
+
+    knex
+        .select('*')        // Retrieve all items
+        .from('software')   // Retreive from hardware table
+
+        .then(userData => {
+            // Send products extracted from database in response
+            res.json(userData)
+        })
+        .catch(err => {
+            res.json({msg: `Error retrieving software: ${err}`})
+        })
+        
+//     next()
+// }, (req, res) => {
+//     res.json({msg : "Get all software"})
 });
 
 //search hardware by name
@@ -38,7 +51,7 @@ router.get('/:name', (req, res) =>{
     knex
         .select('s_prodName')        // Retrieve all items
         .from('software')   // Retreive from products table
-        .where('p_prodName', pName)
+        .where('p_prodName', 'like' `%${pName}%`)
 
         .then(userData => {
             // Send products extracted from database in response

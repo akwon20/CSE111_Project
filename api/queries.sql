@@ -178,6 +178,14 @@ FROM products;
 SELECT *
 FROM Store;
 
+-- Display all available hardware
+SELECT *
+FROM hardware;
+
+-- Display all available software
+SELECT *
+FROM software;
+
 
 -- Check if a specific store contains a specific product
 SELECT c_storeName, c_prodName
