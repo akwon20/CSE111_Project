@@ -14,11 +14,9 @@ import moment from 'moment';
 //set form of pulled data [complete when queries are finished]
 const itemlist = item => (
     <tr>
-        <td>item.list.</td>
-        <td>item.list.</td>
-        <td>item.list.</td>
-        <td>item.list.</td>
-
+        <td>{item.list.s_prodName}</td>
+        <td>{item.list.s_price}</td>
+        <td>{item.list.s_releasedate}</td>
     </tr>
 )
 
@@ -50,9 +48,10 @@ class Software extends Component {
     getSoftware(){
         var curr_time = moment().utcOffset('0').format('YYYY-MM-DD'); //may use this for situations where we sort by most recent 
 
-        fetch(`http://localhost:5000/`) //need to complete queries 
+        fetch(`http://localhost:5000/routes/software`) //need to complete queries 
             .then(res => res.json()) //put result in json for to extract
             .then(list => this.setState({list})) //set pulled data to current list
+            .then(console.log(this.state.list))
             .catch(err => console.log(err))
     }
 
@@ -61,7 +60,7 @@ class Software extends Component {
             <Fragment>
                 <Link to="/">
                     <Navbar bg="dark" variant="dark">
-                        <Navbar.Brand href="#home">Nintendo Tingz</Navbar.Brand>
+                        <Navbar.Brand href="#home">Ninventory</Navbar.Brand>
                     </Navbar>
                 </Link>
                 <Jumbotron>
@@ -78,23 +77,10 @@ class Software extends Component {
                         <thead>
                             <td>Product</td>
                             <td>Price</td>
-                            <td>Rating</td>
                             <td>Release Date</td>
                         </thead>
                         <tbody>
-                            {/* this is where pulled data is displayed */}
-                            <tr>
-                                <td>Sample</td>
-                                <td>Sample</td>
-                                <td>Sample</td>
-                                <td>Sample</td>
-                            </tr>
-                            <tr>
-                                <td>Sample</td>
-                                <td>Sample</td>
-                                <td>Sample</td>
-                                <td>Sample</td>
-                            </tr>
+                            {this.S_List()}
                         </tbody>
                     </Table>
                 </Container>

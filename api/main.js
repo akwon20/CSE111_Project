@@ -50,10 +50,12 @@ app.use(logger);
 //allows for use of router to functions in 'products' file / can now be accessed through requests on localhost:5000/api/products
 var productsRouter = require('./routes/products');
 var hardwareRouter = require('./routes/hardware');
+var softwareRouter = require('./routes/software');
 
 
 app.use('/routes/products', productsRouter);
 app.use('/routes/hardware', hardwareRouter);
+app.use('/routes/software', softwareRouter);
 
 
 //express listen on port and report success message 

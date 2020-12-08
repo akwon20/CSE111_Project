@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();    //initalized router for requests 
-const employees = require('../tst'); //will use dummy DB instead of actaul DB for now
 const path = require('path');   // Import path module
+
 
 const db = path.resolve(__dirname, '../data/relate.sqlite'); // Retrieve location of database
 
@@ -21,11 +21,18 @@ const knex = require('knex')({
 });
 
 //search all hardware [intended for main Hardware page]
-router.get('/' , (req, res, next) => {
-    console.log("Get all software")
-    next()
-}, (req, res) => {
-    res.json({msg : "Get all software"})
+router.get('/' , (req, res) => {
+
+    knex 
+    .select('*')
+    .from('software')
+    .then(data => {
+        console.log("Get all software")
+        res.send(data);
+    })
+    .catch(err => {
+        res.json({msg: `Error retriving software list from database: ${err}`})
+    })
 });
 
 //search hardware by name
@@ -55,8 +62,20 @@ router.get('/:name', (req, res) =>{
 
 router.get('/:price', (req, res) =>{
     console.log("Gets software with price")
+
+    var price = req.params.price;
     
     //filter through table contents to display hardware in decending order from specified price
+    knex 
+    .select('*')
+    .from('software')
+    .where('s_price', price)
+    .then(data => {
+        res.json(data)
+    })
+    .catch(err => {
+        res.json({msg: `Error retriving software list from database: ${err}`})
+    })
 
 
 });
