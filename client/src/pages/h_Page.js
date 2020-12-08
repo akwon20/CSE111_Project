@@ -9,6 +9,17 @@ import Table from 'react-bootstrap/Table';
 import Jumbotron from 'react-bootstrap/Jumbotron';
 import Container from 'react-bootstrap/Container';
 
+import moment from 'moment';
+
+// Set form of pulled data (Complete when queries are ready)
+const itemlist = item => (
+    <tr>
+        <td>item.list.</td>
+        <td>item.list.</td>
+        <td>item.list.</td>
+        <td>item.list.</td>
+    </tr>
+)
 
 
 

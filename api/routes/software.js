@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();    //initalized router for requests 
-const employees = require('../tst'); //will use dummy DB instead of actaul DB for now
 const path = require('path');   // Import path module
+
 
 const db = path.resolve(__dirname, '../data/relate.sqlite'); // Retrieve location of database
 
@@ -22,23 +22,17 @@ const knex = require('knex')({
 
 //search all hardware [intended for main Hardware page]
 router.get('/' , (req, res) => {
-    console.log("Get all software")
 
-    knex
-        .select('*')        // Retrieve all items
-        .from('software')   // Retreive from hardware table
-
-        .then(userData => {
-            // Send products extracted from database in response
-            res.json(userData)
-        })
-        .catch(err => {
-            res.json({msg: `Error retrieving software: ${err}`})
-        })
-        
-//     next()
-// }, (req, res) => {
-//     res.json({msg : "Get all software"})
+    knex 
+    .select('*')
+    .from('software')
+    .then(data => {
+        console.log("Get all software")
+        res.send(data);
+    })
+    .catch(err => {
+        res.json({msg: `Error retriving software list from database: ${err}`})
+    })
 });
 
 //search hardware by name
@@ -69,24 +63,19 @@ router.get('/:name', (req, res) =>{
 router.get('/:price', (req, res) =>{
     console.log("Gets software with price")
 
-    console.log("Price is " + req.params.price)   // Check back on this one later
-    const pPrice = req.params.price;
-
-    //preform check to see if such products exist in table 
-    knex
-        .select('s_prodName, s_price')        // Retrieve software name and price
-        .from('software')   // Retreive from software table
-        .where('s_price', 'like', `%${pPrice}%`)
-
-        .then(userData => {
-            // Send products extracted from database in response
-            res.json(userData)
-        })
-        .catch(err => {
-            res.json({msg: `Error retrieving software: ${err}`})
-        })
+    var price = req.params.price;
     
     //filter through table contents to display hardware in decending order from specified price
+    knex 
+    .select('*')
+    .from('software')
+    .where('s_price', price)
+    .then(data => {
+        res.json(data)
+    })
+    .catch(err => {
+        res.json({msg: `Error retriving software list from database: ${err}`})
+    })
 
 
 });
