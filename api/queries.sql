@@ -360,4 +360,5 @@ END;
 CREATE TRIGGER hwPriceUpdate AFTER UPDATE ON products
 BEGIN
 UPDATE
-    h_price = NEW.h_price
+    OLD.h_price = NEW.h_price;
+
