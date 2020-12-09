@@ -56,17 +56,46 @@ router.get('/:name', (req, res) => {
 
 
 //post request for adding content to list
+// router.post('/', (req, res) => {
+//     const newEmpl = {
+//         id : req.params.id,
+//         name : req.params.name,
+//     }
+
+//     if(!newEmpl.id || !newEmpl.name) { //check if either value is missing 
+//         return res.status(400).json({msg : "Include id and name"}); //error message
+//     }
+
+//     employees.push(newEmpl); //if checks passed, add to array
+
+//     console.log(`Employee ${req.params.name} has been added`); //success message
+
+//     res.json(employees); //display all contents after addition
+
+// });
+
 router.post('/', (req, res) => {
-    const newEmpl = {
-        id : req.params.id,
-        name : req.params.name,
+    const newProd = {
+        p_storeName : req.params.p_storeName,
+        p_prodName : req.params.p_prodName,
+        p_price : req.params.p_price,
+        p_releasedate : req.params.p_storeName,
+        p_type : req.params.p_type
     }
 
     if(!newEmpl.id || !newEmpl.name) { //check if either value is missing 
         return res.status(400).json({msg : "Include id and name"}); //error message
     }
 
-    employees.push(newEmpl); //if checks passed, add to array
+    // Insert new product into the table
+    knex('products')
+        .insert(
+            {p_storeName : req.params.p_storeName,
+                p_prodName : req.params.p_prodName,
+                p_price : req.params.p_price,
+                p_releasedate : req.params.p_storeName,
+                p_type : req.params.p_type}
+        )
 
     console.log(`Employee ${req.params.name} has been added`); //success message
 
