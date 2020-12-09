@@ -52,8 +52,7 @@ router.get('/:name', (req, res) =>{
     knex
         .select('h_name')        // Retrieve all items
         .from('hardware')   // Retreive from products table
-        .where('h_name', 'like' `%${pName}%`)
-
+        .where('h_name', 'like', `%${pName}%`)
         .then(userData => {
             // Send products extracted from database in response
             res.json(userData)
