@@ -1,7 +1,9 @@
 /*
-Notes:
-    - Download postman to check data being sent to and from our server port
-    - review js DB lecture 
+routes completed
+
+Next Steps:
+    -Start Design of 4 pages [main page [w/searchbar], product caetgory pages [2 Pages : software page/harware page], and product info page]
+    -look into how react use react to create page that interfaces with DB
 */
 
 // Express server components
@@ -61,13 +63,3 @@ app.use('/routes/software', softwareRouter);
 //express listen on port and report success message 
 app.listen(PORT, () => console.log(`Server started in port: ${PORT}`));
 
-
-//access main page 
-// app.get('/', (req, res) => {
-//     res.sendFile(path.join(__dirname, 'public', 'main.html'));
-
-
-// Test method (check for outputs on webpage)
-// app.get('/', (req, res) => {
-//     res.send('<h1>Hello World</h1>');
-// });
