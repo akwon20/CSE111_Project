@@ -88,6 +88,7 @@ VALUES
     ('Super Mario Odyssey', 49.9, '2018-10-20'),
     ('The Legend of Zelda: Breath of the Wild', 39.99, '2018-05-09');
 
+
 INSERT INTO
     inStock(
     is_prodName,
@@ -153,6 +154,17 @@ VALUES
     ('Animal Crossing: New Horizons', 'Target', 49.99, 60.00, -17.02);
 
 
+CREATE VIEW prodUpdates(store, storeNum, product, price,  prod_amount, restock_time) AS
+    SELECT Store.s_storeName, Store.s_storeNum,  p_prodName, p_price, is_prodAmount, time_added
+    FROM shipmentETA, Store, products, inStock
+    WHERE sE_prodName = p_prodName AND
+        is_storeName = sE_storeName AND
+        is_storeNum = sE_storeNum
+
+
+--need a trigger for increasing 'instock' and 'contains' table / other relevant tables
+
+
 
 
 -- Search query ------------------------------------
@@ -165,6 +177,14 @@ FROM products;
 -- Display stores in California
 SELECT *
 FROM Store;
+
+-- Display all available hardware
+SELECT *
+FROM hardware;
+
+-- Display all available software
+SELECT *
+FROM software;
 
 
 -- Check if a specific store contains a specific product
@@ -322,4 +342,23 @@ SET
 WHERE
     pCF_prodName = 'Animal Crossing: New Horizons' AND
     pCF_storeName = 'Target';
+
+
+-- Triggers to update other tables
+CREATE TRIGGER hwInsert AFTER INSERT ON products
+BEGIN
+    INSERT INTO hardware(h_name, h_price, h_releaseDate)
+        VALUES(NEW.h_name, NEW.h_price, NEW.h_releaseDate);
+END;
+
+CREATE TRIGGER swInsert AFTER INSERT ON products
+BEGIN
+    INSERT INTO software(s_prodName, s_price, s_releaseDate)
+        VALUES(NEW.s_prodName, NEW.s_price, NEW.s_releaseDate);
+END;
+
+CREATE TRIGGER hwPriceUpdate AFTER UPDATE ON products
+BEGIN
+UPDATE
+    OLD.h_price = NEW.h_price;
 

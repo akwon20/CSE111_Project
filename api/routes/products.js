@@ -21,6 +21,8 @@ const knex = require('knex')({
 // Get all products from the product table [done]
 //this query done [get all]
 router.get('/', (req, res) => {
+    console.log("Get all products")
+    
     knex
         .select('*')        // Retrieve all items
         .from('products')   // Retreive from products table
@@ -41,7 +43,7 @@ router.get('/:name', (req, res) => {
     knex
         .select('p_prodName')        // Retrieve all items
         .from('products')   // Retreive from products table
-        .where('p_prodName', pName)
+        .where('p_prodName', 'like', `%${pName}%`)
         .then(userData => {
             // Send products extracted from database in response
             res.json(userData)
