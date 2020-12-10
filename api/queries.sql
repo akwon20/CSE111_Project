@@ -165,6 +165,28 @@ CREATE VIEW prodUpdates(store, storeNum, product, price,  prod_amount, restock_t
 --need a trigger for increasing 'instock' and 'contains' table / other relevant tables
 
 
+-- Insert new product into hardware
+CREATE TRIGGER hwInsert AFTER INSERT ON products
+BEGIN
+    INSERT INTO hardware(h_name, h_price, h_releaseDate)
+        SELECT p_prodName, p_price, p_releaseDate
+        FROM products
+        WHERE
+            p_prodName = NEW.p_prodName
+            AND p_type = 'Hardware';
+END;
+
+-- Insert new product into software
+CREATE TRIGGER swInsert AFTER INSERT ON products
+BEGIN
+    INSERT INTO software(s_prodname, s_price, s_releasedate)
+        SELECT p_prodName, p_price, p_releaseDate
+        FROM products
+        WHERE
+            p_prodName = NEW.p_prodName
+            AND p_type = 'Software';
+END;
+
 
 
 -- Search query ------------------------------------
@@ -342,23 +364,3 @@ SET
 WHERE
     pCF_prodName = 'Animal Crossing: New Horizons' AND
     pCF_storeName = 'Target';
-
-
--- Triggers to update other tables
-CREATE TRIGGER hwInsert AFTER INSERT ON products
-BEGIN
-    INSERT INTO hardware(h_name, h_price, h_releaseDate)
-        VALUES(NEW.h_name, NEW.h_price, NEW.h_releaseDate);
-END;
-
-CREATE TRIGGER swInsert AFTER INSERT ON products
-BEGIN
-    INSERT INTO software(s_prodName, s_price, s_releaseDate)
-        VALUES(NEW.s_prodName, NEW.s_price, NEW.s_releaseDate);
-END;
-
-CREATE TRIGGER hwPriceUpdate AFTER UPDATE ON products
-BEGIN
-UPDATE
-    OLD.h_price = NEW.h_price;
-
