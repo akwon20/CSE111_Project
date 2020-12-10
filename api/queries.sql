@@ -53,7 +53,7 @@ INSERT INTO
 VALUES
     ('Target','The Legend of Zelda: Breath of the Wild', 39.99, '2018-05-09', 'Software'),
     ('Walmart', 'Super Mario Odyssey', 49.9, '2018-10-20', 'Software'),
-    ('Target', 'Animal Crossing: New Horizons', 59.9, '2020-05-21', 'Software')
+    ('Target', 'Animal Crossing: New Horizons', 59.9, '2020-05-21', 'Software'),
     ('Target', 'Nintendo Switch with Neon Blue and Neon Red Joy-Con', 299.99, '2017-03-03', 'Hardware'),
     ('Target', 'Nintendo Switch with Gray Joy-Con', 299.99, '2017-03-03', 'Hardware'),
     ('Target', 'Nintendo Switch Lite - Turquoise', 199.99, '2019-09-20', 'Hardware'),
@@ -164,8 +164,7 @@ CREATE VIEW prodUpdates(store, storeNum, product, price,  prod_amount, restock_t
 
 --need a trigger for increasing 'instock' and 'contains' table / other relevant tables
 
-
--- Insert new product into hardware
+-- Dynamically insert new product into hardware
 CREATE TRIGGER hwInsert AFTER INSERT ON products
 BEGIN
     INSERT INTO hardware(h_name, h_price, h_releaseDate)
@@ -176,7 +175,7 @@ BEGIN
             AND p_type = 'Hardware';
 END;
 
--- Insert new product into software
+-- Dynamically insert new product into software
 CREATE TRIGGER swInsert AFTER INSERT ON products
 BEGIN
     INSERT INTO software(s_prodname, s_price, s_releasedate)
@@ -185,6 +184,32 @@ BEGIN
         WHERE
             p_prodName = NEW.p_prodName
             AND p_type = 'Software';
+END;
+
+
+-- TODO: stockup and checkContain triggers need to be tested
+
+-- Add new products to inStock
+CREATE TRIGGER stockup AFTER INSERT ON products
+BEGIN
+    INSERT INTO inStock(is_prodName, is_storeName, is_storeNum, is_cityID, is_prodAmount)
+        SELECT p_prodName, p_storeName, s_storeNum, l_cityID, COUNT(p_prodName)
+        FROM products, Store, locations
+        WHERE
+            p_prodName = NEW.p_prodName
+            AND p_storeName = s_storeName;
+END;
+
+-- Add new products to Contains
+-- FIXME: status can't be null - How do we add the stock status to the table?
+CREATE TRIGGER checkContain AFTER INSERT ON products
+BEGIN
+    INSERT INTO Contains(c_prodName, c_cityID, c_storeName, c_storeNum)
+        SELECT p_prodName, l_cityID, s_storeName, s_storeNum
+        FROM products, locations, Store
+        WHERE
+            p_prodName = NEW.p_prodName
+            AND p_storeName = s_storeName;
 END;
 
 
@@ -215,9 +240,6 @@ FROM Contains
 WHERE c_storeNum = 1 AND
         c_prodName = 'The Legend of Zelda: Breath of the Wild' AND
         c_status = 1;
-
-SELECT c_prodName, c_storeName
-
 
 SELECT p_Name
 FROM inStock;
