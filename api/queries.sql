@@ -159,7 +159,7 @@ CREATE VIEW prodUpdates(store, storeNum, product, price,  prod_amount, restock_t
     FROM shipmentETA, Store, products, inStock
     WHERE sE_prodName = p_prodName AND
         is_storeName = sE_storeName AND
-        is_storeNum = sE_storeNum
+        is_storeNum = sE_storeNum;
 
 
 --need a trigger for increasing 'instock' and 'contains' table / other relevant tables
@@ -211,6 +211,8 @@ BEGIN
             p_prodName = NEW.p_prodName
             AND p_storeName = s_storeName;
 END;
+
+
 
 
 
