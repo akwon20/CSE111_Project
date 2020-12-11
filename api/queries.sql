@@ -1,4 +1,137 @@
+
+-- Triggers to update other tables
+CREATE TRIGGER hwInsert AFTER INSERT ON products
+BEGIN
+    INSERT INTO hardware(h_name, h_price, h_releaseDate)
+        SELECT p_prodName, p_price, p_releaseDate
+        FROM products
+        WHERE
+            p_prodName = NEW.p_prodName
+            AND p_type = 'Hardware';
+END;
+
+CREATE TRIGGER swInsert AFTER INSERT ON products
+BEGIN
+    INSERT INTO software(s_prodname, s_price, s_releasedate)
+        SELECT p_prodName, p_price, p_releaseDate
+        FROM products
+        WHERE
+            p_prodName = NEW.p_prodName
+            AND p_type = 'Software';
+END;
+
+CREATE TRIGGER hwUpdate AFTER UPDATE ON products
+FOR EACH ROW
+BEGIN
+    UPDATE hardware
+    SET h_price = (SELECT p_price
+                   FROM products
+                   WHERE
+                        p_price = NEW.p_price
+                        AND p_type = 'Hardware')
+    WHERE
+        h_name = (SELECT p_prodName
+                  FROM products
+                  WHERE
+                      p_price = NEW.p_price
+                      AND p_type = 'Hardware');
+
+    UPDATE hardware
+    SET h_releaseDate = (SELECT p_releasedate
+                         FROM products
+                         WHERE
+                                p_releasedate = NEW.p_releasedate
+                                AND p_type = 'Hardware')
+    WHERE
+        h_name = (SELECT p_prodName
+                  FROM products
+                  WHERE
+                      p_releasedate = NEW.p_releasedate
+                      AND p_type = 'Hardware');
+END;
+
+CREATE TRIGGER swUpdate AFTER UPDATE ON products
+FOR EACH ROW
+BEGIN
+    UPDATE software
+    SET s_price = (SELECT p_price
+                   FROM products
+                   WHERE
+                        p_price = NEW.p_price
+                        AND p_type = 'Software');
+
+    UPDATE software
+    SET s_releasedate = (SELECT p_releasedate
+                         FROM products
+                         WHERE
+                                p_releasedate = NEW.p_releasedate
+                                AND p_type = 'Software');
+END;
+
+CREATE TRIGGER updatePriceChange AFTER UPDATE ON products
+FOR EACH ROW
+BEGIN
+    UPDATE priceChngFreq
+    SET pCF_prodStorePrice = (SELECT p_price
+                              FROM products
+                              WHERE
+                                    p_price = NEW.p_price)
+    WHERE
+        pCF_prodName = (SELECT p_prodName
+                        FROM products
+                        WHERE
+                            p_price = NEW.p_price)
+
+        AND pCF_storeName = (SELECT p_storeName
+                         FROM products
+                         WHERE 
+                                p_price = NEW.p_price);
+END;
+
+--need a trigger for increasing 'instock' and 'contains' table / other relevant tables
+CREATE TRIGGER stockup AFTER INSERT ON products
+BEGIN
+    INSERT INTO inStock(is_prodName, is_storeName, is_storeNum, is_cityID, is_prodAmount)
+        SELECT p_prodName, p_storeName, s_storeNum, l_cityID, COUNT(p_prodName)
+        FROM products, Store, locations
+        WHERE
+            p_prodName = NEW.p_prodName
+            AND p_storeName = s_storeName;
+END;
+
+CREATE TRIGGER checkContain AFTER INSERT ON products
+BEGIN
+    INSERT INTO Contains(c_prodName, c_cityID, c_storeName, c_storeNum)
+        SELECT p_prodName, l_cityID, s_storeName, s_storeNum
+        FROM products, locations, Store
+        WHERE
+            p_prodName = NEW.p_prodName
+            AND p_storeName = s_storeName;
+END;
+
+DROP TRIGGER hwInsert;
+DROP TRIGGER swInsert;
+DROP TRIGGER hwUpdate;
+DROP TRIGGER swUpdate;
+DROP TRIGGER updatePriceChange;
+DROP TRIGGER stockup;
+DROP TRIGGER checkContain;
+
+
 -- Insert query ------------------------------------
+INSERT INTO 
+    Contains(
+    c_prodName,
+    c_cityID,
+    c_storeName,
+    c_storeNum,
+    c_status
+    )
+VALUES
+    ('The Legend of Zelda: Breath of the Wild', 1, 'Target', 1, FALSE),
+    ('Super Mario Odyssey', 1, 'Walmart', 2, TRUE),
+    ('Animal Crossing: New Horizons', 2, 'Target', 2, TRUE);
+
 INSERT INTO 
     Contains(
     c_prodName,
@@ -39,7 +172,7 @@ VALUES
     (3, 'BestBuy', 1),
     (3, 'Target', 1),
     (3, 'Walmart', 1),
-    (3, 'Gamestop', 1)
+    (3, 'Gamestop', 1),
     (6, 'Amazon', 1);
 
 INSERT INTO 
@@ -60,6 +193,17 @@ VALUES
     ('Target','Nintendo Switch Lite - Gray', 199.99, '2019-09-20', 'Hardware'),
     ('Target', 'Nintendo Switch Lite - Yellow', 199.99, '2019-09-20', 'Hardware'),
     ('Target', 'Nintendo Switch Lite - Coral', 199.99, '2019-09-20', 'Hardware');
+
+INSERT INTO 
+    products(
+    p_storeName,
+    p_prodName,
+    p_price,
+    p_releasedate,
+    p_type
+    )
+VALUES
+    ('Target','Astral Chain', 39.99, '2019-08-30', 'Software');
 
 
 -- Hardware/software should be added dynamically when new items are added to the products table
@@ -164,55 +308,6 @@ CREATE VIEW prodUpdates(store, storeNum, product, price,  prod_amount, restock_t
 
 --need a trigger for increasing 'instock' and 'contains' table / other relevant tables
 
--- Dynamically insert new product into hardware
-CREATE TRIGGER hwInsert AFTER INSERT ON products
-BEGIN
-    INSERT INTO hardware(h_name, h_price, h_releaseDate)
-        SELECT p_prodName, p_price, p_releaseDate
-        FROM products
-        WHERE
-            p_prodName = NEW.p_prodName
-            AND p_type = 'Hardware';
-END;
-
--- Dynamically insert new product into software
-CREATE TRIGGER swInsert AFTER INSERT ON products
-BEGIN
-    INSERT INTO software(s_prodname, s_price, s_releasedate)
-        SELECT p_prodName, p_price, p_releaseDate
-        FROM products
-        WHERE
-            p_prodName = NEW.p_prodName
-            AND p_type = 'Software';
-END;
-
-
--- TODO: stockup and checkContain triggers need to be tested
-
--- Add new products to inStock
-CREATE TRIGGER stockup AFTER INSERT ON products
-BEGIN
-    INSERT INTO inStock(is_prodName, is_storeName, is_storeNum, is_cityID, is_prodAmount)
-        SELECT p_prodName, p_storeName, s_storeNum, l_cityID, COUNT(p_prodName)
-        FROM products, Store, locations
-        WHERE
-            p_prodName = NEW.p_prodName
-            AND p_storeName = s_storeName;
-END;
-
--- Add new products to Contains
--- FIXME: status can't be null - How do we add the stock status to the table?
-CREATE TRIGGER checkContain AFTER INSERT ON products
-BEGIN
-    INSERT INTO Contains(c_prodName, c_cityID, c_storeName, c_storeNum)
-        SELECT p_prodName, l_cityID, s_storeName, s_storeNum
-        FROM products, locations, Store
-        WHERE
-            p_prodName = NEW.p_prodName
-            AND p_storeName = s_storeName;
-END;
-
-
 
 
 
@@ -242,6 +337,9 @@ FROM Contains
 WHERE c_storeNum = 1 AND
         c_prodName = 'The Legend of Zelda: Breath of the Wild' AND
         c_status = 1;
+
+SELECT c_prodName, c_storeName
+
 
 SELECT p_Name
 FROM inStock;
@@ -388,3 +486,5 @@ SET
 WHERE
     pCF_prodName = 'Animal Crossing: New Horizons' AND
     pCF_storeName = 'Target';
+
+

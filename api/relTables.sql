@@ -25,6 +25,7 @@ CREATE TABLE products(
     p_price DECIMAL NOT NULL,
     p_releasedate DATE NOT NULL,
     p_type CHAR NOT NULL
+    -- PRIMARY KEY(p_prodName, p_type)
     );
 
 CREATE TABLE hardware(
@@ -40,8 +41,6 @@ CREATE TABLE software(
     s_releasedate DATE NOT NULL
     );
 
-DROP TABLE inStock;
-
 CREATE TABLE inStock(
     is_prodName CHAR NOT NULL,
     is_storeName CHAR NOT NULL,
@@ -50,8 +49,6 @@ CREATE TABLE inStock(
     is_prodAmount INTEGER NOT NULL,
     time_added TEXT DEFAULT CURRENT_TIMESTAMP
     );
-
-DROP TABLE shipmentETA;
 
 CREATE TABLE shipmentETA(
     sE_prodName CHAR NOT NULL,
