@@ -107,7 +107,7 @@ BEGIN
 END;
 
 
--- Update price change
+-- TODO: Update price change
 CREATE TRIGGER updatePriceChange AFTER UPDATE ON products
 FOR EACH ROW
 BEGIN
@@ -131,6 +131,8 @@ BEGIN
 END;
 
 --need a trigger for increasing 'instock' and 'contains' table / other relevant tables
+
+-- TODO
 CREATE TRIGGER newStock AFTER INSERT ON products
 BEGIN
     INSERT INTO inStock(is_prodName, is_storeName, is_storeNum, is_cityID, is_prodAmount)
@@ -141,6 +143,7 @@ BEGIN
             AND p_storeName = s_storeName;
 END;
 
+-- TODO
 CREATE TRIGGER updateStock BEFORE UPDATE ON products
 FOR EACH ROW
 BEGIN
