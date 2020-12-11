@@ -1,6 +1,8 @@
 import React, { Component, Fragment} from 'react';
 import {Link} from "react-router-dom";
+
 //import axios from 'axios';
+
 //import Container from 'react-bootstrap/Container';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -9,6 +11,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import Table from 'react-bootstrap/Table';
 import Jumbotron from 'react-bootstrap/Jumbotron';
 import Container from 'react-bootstrap/Container';
+
 
 //import moment from 'moment';
 
@@ -24,6 +27,7 @@ import Container from 'react-bootstrap/Container';
 
 
 
+
 class Hardware extends Component {
 
     constructor(props){
@@ -31,10 +35,12 @@ class Hardware extends Component {
         this.state = {
             isLoaded: false,
             list: []
+
         }
     }
 
     //when componenet is successfully called pull appropriate data
+
     async componentDidMount(){
         // this.getHardware();
 
@@ -45,6 +51,7 @@ class Hardware extends Component {
         const data = await response.json();
         this.setState({list : data});
         }
+
 
 
 
@@ -77,6 +84,7 @@ class Hardware extends Component {
                         </thead>
                         <tbody>
                             {/* this is where data will be pulled and displayed */}
+
                             {list.map((item, index) => {
                                 return  <tr>
                                             <Link to = {{pathname: `/product`, state : {
@@ -86,6 +94,7 @@ class Hardware extends Component {
                                             <td>{item.h_releaseDate}</td>
                                         </tr>
                             })}
+
                         </tbody>
                     </Table>
                 </Container>

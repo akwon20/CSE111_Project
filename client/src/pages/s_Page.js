@@ -1,5 +1,6 @@
 import React, { Component, Fragment} from 'react';
 import {Link} from "react-router-dom";
+
 import Navbar from 'react-bootstrap/Navbar';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -20,6 +21,7 @@ import Container from 'react-bootstrap/Container';
 //         <td>{item.s_releasedate}</td>
 //     </tr>
 // )
+
 
 
 class Software extends Component {
@@ -54,16 +56,6 @@ class Software extends Component {
     //pull data from the DB
     // getSoftware(){
 
-    //     fetch(`http://localhost:5000/routes/software`) //need to complete queries 
-    //         .then(res => res.json())
-    //         .then(res => { console.log(res); return res; }) //
-    //         .then(list => this.setState({list}))
-    //         .catch(err => console.log(err))
-
-    //     //console.log(this.state);
-    // }
-
-    
 
     render() {
         //console.log(this.state);
@@ -90,6 +82,7 @@ class Software extends Component {
                             <td>Release Date</td>
                         </thead>
                         <tbody>
+
                             {list.map((item, index) => {
                                 return <tr>
                                         <Link to = {{pathname: `/product`, state : {
@@ -99,6 +92,7 @@ class Software extends Component {
                                             <td>{item.s_releasedate}</td>
                                         </tr>
                             })}
+
                         </tbody>
                     </Table>
                 </Container>

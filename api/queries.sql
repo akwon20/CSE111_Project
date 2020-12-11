@@ -178,6 +178,14 @@ FROM products;
 SELECT *
 FROM Store;
 
+-- Display all available hardware
+SELECT *
+FROM hardware;
+
+-- Display all available software
+SELECT *
+FROM software;
+
 
 -- Check if a specific store contains a specific product
 SELECT c_storeName, c_prodName
@@ -334,4 +342,23 @@ SET
 WHERE
     pCF_prodName = 'Animal Crossing: New Horizons' AND
     pCF_storeName = 'Target';
+
+
+-- Triggers to update other tables
+CREATE TRIGGER hwInsert AFTER INSERT ON products
+BEGIN
+    INSERT INTO hardware(h_name, h_price, h_releaseDate)
+        VALUES(NEW.h_name, NEW.h_price, NEW.h_releaseDate);
+END;
+
+CREATE TRIGGER swInsert AFTER INSERT ON products
+BEGIN
+    INSERT INTO software(s_prodName, s_price, s_releaseDate)
+        VALUES(NEW.s_prodName, NEW.s_price, NEW.s_releaseDate);
+END;
+
+CREATE TRIGGER hwPriceUpdate AFTER UPDATE ON products
+BEGIN
+UPDATE
+    OLD.h_price = NEW.h_price;
 
