@@ -18,3 +18,7 @@ FROM hardware;
 
 DELETE *
 FROM software;
+
+DELETE
+FROM products
+WHERE p_prodName = 'Daemon X Machina';

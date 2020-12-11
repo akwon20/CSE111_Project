@@ -74,3 +74,9 @@ SET
 WHERE
     pCF_prodName = 'Animal Crossing: New Horizons' AND
     pCF_storeName = 'Target';
+
+UPDATE products
+SET p_price = 39.99
+WHERE
+    p_prodName = 'Super Mario Odyssey'
+    AND p_storeName = 'Walmart';

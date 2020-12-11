@@ -1,5 +1,7 @@
 
 -- Triggers to update other tables
+
+-- Dynamically insert product into hardware table when new hardware is added to the products table
 CREATE TRIGGER hwInsert AFTER INSERT ON products
 BEGIN
     INSERT INTO hardware(h_name, h_price, h_releaseDate)
@@ -10,18 +12,7 @@ BEGIN
             AND p_type = 'Hardware';
 END;
 
-CREATE TRIGGER swInsert AFTER INSERT ON products
-BEGIN
-    INSERT INTO software(s_prodname, s_price, s_releasedate)
-        SELECT p_prodName, p_price, p_releaseDate
-        FROM products
-        WHERE
-            p_prodName = NEW.p_prodName
-            AND p_type = 'Software';
-END;
-
-
-CREATE TRIGGER hwUpdate BEFORE UPDATE ON products
+CREATE TRIGGER hwUpdate AFTER UPDATE ON products
 FOR EACH ROW
 BEGIN
     UPDATE hardware
@@ -49,6 +40,30 @@ BEGIN
                   WHERE
                       p_releasedate = NEW.p_releasedate
                       AND p_type = 'Hardware');
+END;
+
+-- Delete from the hardware table when a product is delete from the products table
+CREATE TRIGGER hwDelete AFTER DELETE ON products
+BEGIN
+    DELETE FROM hardware
+    WHERE
+        h_name = (SELECT p_prodName
+                FROM products
+                WHERE p_prodName = OLD.p_prodName);
+END;
+
+
+
+
+-- Dynamically insert product into software table when a new software is added to the products table
+CREATE TRIGGER swInsert AFTER INSERT ON products
+BEGIN
+    INSERT INTO software(s_prodname, s_price, s_releasedate)
+        SELECT p_prodName, p_price, p_releaseDate
+        FROM products
+        WHERE
+            p_prodName = NEW.p_prodName
+            AND p_type = 'Software';
 END;
 
 CREATE TRIGGER swUpdate AFTER UPDATE ON products
@@ -81,6 +96,18 @@ BEGIN
                             AND p_type = 'Software');
 END;
 
+-- Delete from the software table when a product is delete from the products table
+CREATE TRIGGER swDelete AFTER DELETE ON products
+BEGIN
+    DELETE FROM software
+    WHERE
+        s_prodName = (SELECT p_prodName
+                FROM products
+                WHERE p_prodName = OLD.p_prodName);
+END;
+
+
+-- Update price change
 CREATE TRIGGER updatePriceChange AFTER UPDATE ON products
 FOR EACH ROW
 BEGIN
@@ -104,7 +131,7 @@ BEGIN
 END;
 
 --need a trigger for increasing 'instock' and 'contains' table / other relevant tables
-CREATE TRIGGER stockup AFTER INSERT ON products
+CREATE TRIGGER newStock AFTER INSERT ON products
 BEGIN
     INSERT INTO inStock(is_prodName, is_storeName, is_storeNum, is_cityID, is_prodAmount)
         SELECT p_prodName, p_storeName, s_storeNum, l_cityID, COUNT(p_prodName)
@@ -114,16 +141,16 @@ BEGIN
             AND p_storeName = s_storeName;
 END;
 
-CREATE TRIGGER checkContain AFTER INSERT ON products
+CREATE TRIGGER updateStock BEFORE UPDATE ON products
+FOR EACH ROW
 BEGIN
-    INSERT INTO Contains(c_prodName, c_cityID, c_storeName, c_storeNum, c_status)
-    VALUES(
-        NEW.p_prodName,
-        NEW.
-        NEW.p_storeName,
-
-    );
+    UPDATE inStock
+    SET is_prodAmount = COUNT(p_prodName)
+    WHERE
+        p_prodName = OLD.p_prodName
+        AND p_storeName = s_storeName;
 END;
+
 
 
 

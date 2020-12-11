@@ -4,7 +4,7 @@ CREATE TABLE Contains(
     c_cityID INTEGER NOT NULL,
     c_storeName CHAR NOT NULL,
     c_storeNum INTEGER NOT NULL,
-    c_status BOOLEAN NOT NULL -- shows if store contains product
+    c_status BOOLEAN DEFAULT TRUE -- shows if store contains product
     );
 
 CREATE TABLE saleFreq(
