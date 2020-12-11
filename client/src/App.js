@@ -6,6 +6,7 @@ import {Route, BrowserRouter as Router, Switch} from 'react-router-dom';
 import Home from './pages/home';
 import Software from './pages/s_Page';
 import Hardware from './pages/h_Page';
+import ProdPage from './pages/prod_Page';
 
 
 
@@ -40,6 +41,7 @@ render(){
                 <Route exact path = "/" component = {Home}/> 
                 <Route path = '/software' component = {Software} />
                 <Route path = '/hardware' component = {Hardware} />
+                <Route path = '/product' component = {ProdPage} />
             </Switch>
         </div>
 
